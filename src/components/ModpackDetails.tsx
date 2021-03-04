@@ -1,5 +1,7 @@
 import { Modpack } from "../overwolf/models";
 
+import ReactMarkdown from 'react-markdown';
+
 import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -32,7 +34,7 @@ export default function ModpackDetails({ modpack, close }: Props) {
         <Modal.Body>
             <Tabs defaultActiveKey="overview" id="modpack-details">
                 <Tab eventKey="overview" title="Overview">
-                    {modpack?.description?.split('\n')?.map((item, i) => <p key={i}>{item}</p>)}
+                    <ReactMarkdown children={modpack.description}/>
                 </Tab>
                 <Tab eventKey="versions" title="Versions">
                     {modpack.versions.map((version, i) =>
