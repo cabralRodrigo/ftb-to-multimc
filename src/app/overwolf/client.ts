@@ -10,15 +10,13 @@ export class Client {
         return json.packs;
     }
 
-    public static async modpackDetails(modpackId: number): Promise<Modpack>
-    {
+    public static async modpackDetails(modpackId: number): Promise<Modpack> {
         const response = await fetch(`${Client.URL}/public/modpack/${modpackId}`);
         return await response.json() as Modpack;
     }
 
-    public static async versionDetails(modpackId: number, versionId: number): Promise<VersionDetail>
-    {
-        const response = await fetch(`${Client.URL}/public/modpack/${modpackId}/${versionId}`);
+    public static async versionDetails(modpackId: number, versionId: number, signal: AbortSignal): Promise<VersionDetail> {
+        const response = await fetch(`${Client.URL}/public/modpack/${modpackId}/${versionId}`, { signal: signal });
         return await response.json() as VersionDetail;
     }
 }

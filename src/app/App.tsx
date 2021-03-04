@@ -1,4 +1,4 @@
-import './App.scss';
+import 'bootstrap/dist/css/bootstrap';
 
 import React, { useEffect, useState } from "react";
 import { Client as OverwolfClient } from "./overwolf/client";
