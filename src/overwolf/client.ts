@@ -1,4 +1,4 @@
-import { Modpack, ModpackList } from "./models";
+import { Modpack, ModpackList, VersionDetail } from "./models";
 
 export class Client {
     private static URL = 'https://api.modpacks.ch';
@@ -14,5 +14,11 @@ export class Client {
     {
         const response = await fetch(`${Client.URL}/public/modpack/${modpackId}`);
         return await response.json() as Modpack;
+    }
+
+    public static async versionDetails(modpackId: number, versionId: number): Promise<VersionDetail>
+    {
+        const response = await fetch(`${Client.URL}/public/modpack/${modpackId}/${versionId}`);
+        return await response.json() as VersionDetail;
     }
 }

@@ -85,3 +85,43 @@ export type Tag = {
     id: number,
     name: string
 }
+
+export type VersionDetail = {
+    files: VersionFile[],
+    specs: Specs,
+    targets: Target[],
+    installs: number,
+    plays: number,
+    refreshed: number,
+    changelog: string,
+    parent: number,
+    notification: string,
+    status: string,
+    id: number,
+    name: string,
+    type: string,
+    updated: number,
+}
+
+export type VersionFile = {
+    version: string,
+    path: string,
+    url: string,
+    sha1: string,
+    size: number,
+    clientOnly: boolean,
+    serverOnly: boolean,
+    optional: boolean,
+    id: number,
+    name: string,
+    type: string,
+    updated: number,
+}
+
+export type Target = {
+    version: string,
+    id: number,
+    name: string,
+    type: string,
+    updated: number,
+}
