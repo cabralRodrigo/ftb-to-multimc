@@ -84,7 +84,7 @@ export default function ModpackDetails({ modpack, close }: Props) {
     const normalBody = function () {
         return <Tabs defaultActiveKey="overview" id="modpack-details">
             <Tab eventKey="overview" title="Overview">
-                <ReactMarkdown children={modpack.description} />
+                <ReactMarkdown children={modpack.description} linkTarget="_blank" />
             </Tab>
             <Tab eventKey="versions" title="Versions">
                 {modpack.versions.map((version, i) =>
