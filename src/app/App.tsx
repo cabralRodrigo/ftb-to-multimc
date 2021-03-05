@@ -1,16 +1,15 @@
 import 'bootstrap/dist/css/bootstrap';
 
-import React, { isValidElement, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Client as OverwolfClient } from "./overwolf/client";
-import { Modpack, Tag } from "./overwolf/models";
+import { Modpack } from "./overwolf/models";
 import ModpackDeck from './components/ModpackDeck';
 
 import Container from 'react-bootstrap/Container';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Filters from './components/Filters';
 
 const timeSince = function (date: Date) {
     const now = new Date();
@@ -44,10 +43,7 @@ export default function App() {
     const [loadingMessage, setLoadingMessage] = useState('');
     const [updateDate, setUpdateDate] = useState<Date>(null);
     const [modpacks, setModpacks] = useState<Modpack[]>([]);
-    const [tags, setTags] = useState<Tag[]>([]);
-
-    const [filterName, setFilterName] = useState('');
-    const [filterTags, setFilterTags] = useState<number[]>([]);
+    const [filteredModpacks, setFilteredModpacks] = useState<Modpack[]>([]);
 
     const fetchModpacks = async function (): Promise<Modpack[]> {
         const loadedModpacks = [];
@@ -82,39 +78,8 @@ export default function App() {
             setUpdateDate(now);
         }
 
-        const tagMap: Record<number, Tag> = {};
-        for (const modpack of currentModpacks)
-            for (const tag of modpack.tags)
-                if (!tagMap[tag.id])
-                    tagMap[tag.id] = tag;
-
         setModpacks(currentModpacks);
-
-        const tagArray = Object.keys(tagMap).map(id => tagMap[Number(id)]);
-        tagArray.sort((a, b) => a.name > b.name ? 0 : -1);
-        setTags(tagArray);
     };
-
-    const clearFilters = function () {
-        setFilterName('');
-        setFilterTags([]);
-    }
-
-    const updateFilterName = function (event: React.ChangeEvent<HTMLInputElement>) {
-        setFilterName(event.target.value);
-    }
-
-    const updateFilterTag = function (event: React.ChangeEvent<HTMLInputElement>) {
-        const tagId = Number(event.target.value);
-        if (isNaN(tagId))
-            return;
-
-        const is = filterTags.indexOf(tagId) >= 0;
-        if (event.target.checked && !is)
-            setFilterTags([...filterTags, tagId]);
-        else if (!event.target.checked && is)
-            setFilterTags([...filterTags.filter(s => s !== tagId)]);
-    }
 
     const refresh = async function () {
 
@@ -131,25 +96,6 @@ export default function App() {
             setLoading(false);
         })();
     }, []);
-
-    const filteredModpacks: Modpack[] = [];
-
-    for (const modpack of modpacks) {
-        if (filterName && !modpack.name.toLowerCase().includes(filterName.toLowerCase()))
-            continue;
-
-        let skip = false;
-        for (const tagId of filterTags)
-            if (!modpack.tags.filter(s => s.id == tagId).length) {
-                skip = true;
-                break;
-            }
-
-        if (skip)
-            continue;
-
-        filteredModpacks.push(modpack);
-    }
 
     return <>
         <main role="main">
@@ -183,19 +129,7 @@ export default function App() {
                     <Row>
                         <Col sm={2}>
                             <h2>Filters</h2>
-                            <Form>
-                                <Form.Group>
-                                    <Form.Label>Modpack name</Form.Label>
-                                    <Form.Control type="text" placeholder="Name" onChange={updateFilterName} value={filterName} />
-                                </Form.Group>
-
-                                <Form.Label>Tags</Form.Label>
-                                {tags.map(tag => <Form.Check type="switch" label={tag.name} value={tag.id} id={`tag-${tag.id}`} onChange={updateFilterTag} checked={filterTags.indexOf(tag.id) >= 0} />)}
-
-                                <Button className="mt-3" variant="primary" type="button" onClick={clearFilters}>
-                                    Clear
-                                </Button>
-                            </Form>
+                            <Filters modpacks={modpacks} setFilteredModpacks={setFilteredModpacks} />
                         </Col>
                         <Col>
                             <h2 className="mb-0">Modpacks</h2>
