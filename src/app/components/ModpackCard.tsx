@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function ModpackCard({ modpack, open }: Props) {
-    return <Col key={modpack.id} md={4}>
+    return <Col key={modpack.id} md={3}>
         <Card className="mb-4 box-shadow">
             {modpack.art?.length >= 1 ? <Card.Img variant="top" src={modpack.art[0].url} /> : <></>}
 

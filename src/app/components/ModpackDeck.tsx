@@ -21,11 +21,9 @@ export default function ModpackDeck({ modpacks }: Props) {
     }
 
     return <>
-        <Container>
-            <Row>
-                {modpacks.map(modpack => <ModpackCard key={modpack.id} modpack={modpack} open={openModal} />)}
-            </Row>
-        </Container>
+        <Row>
+            {modpacks.map(modpack => <ModpackCard key={modpack.id} modpack={modpack} open={openModal} />)}
+        </Row>
 
         <ModpackDetails modpack={currentModpack} close={closeModal} />
     </>;
