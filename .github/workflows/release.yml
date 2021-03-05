@@ -1,0 +1,45 @@
+name: Build and release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    name: Release for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x64
+            platform: linux
+          - os: windows-latest
+            target: x64
+            platform: win32
+          - os: macos-latest
+            target: x64
+            platform: darwin
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
+      - name: Install node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          
+      - name: Install npm dependencies
+        run: npm install
+        
+      - name: Build
+        run: npm run make
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: out/make/zip/${{ matrix.platform }}/${{ matrix.target }}/*.zip
+          tag: ${{ github.ref }}
