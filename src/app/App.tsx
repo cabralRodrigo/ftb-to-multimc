@@ -10,6 +10,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Filters from './components/Filters';
+import ModpackStorage from './util/ModpackStorage';
 
 const timeSince = function (date: Date) {
     const now = new Date();
@@ -62,28 +63,17 @@ export default function App() {
     }
 
     const loadModpacks = async function () {
-        const json = localStorage.getItem('modpacks');
+        if (!ModpackStorage.hasModpacks())
+            ModpackStorage.set(await fetchModpacks());
 
-        let currentModpacks: Modpack[];
-        if (json) {
-            currentModpacks = JSON.parse(json) as Modpack[];
-            setUpdateDate(new Date(Date.parse(JSON.parse(localStorage.getItem('updated')))));
-        }
-        else {
-            currentModpacks = await fetchModpacks();
-            localStorage.setItem('modpacks', JSON.stringify(currentModpacks));
+        const [loadedModpacks, updatedDate] = ModpackStorage.get();
 
-            const now = new Date();
-            localStorage.setItem('updated', JSON.stringify(now));
-            setUpdateDate(now);
-        }
-
-        setModpacks(currentModpacks);
+        setUpdateDate(updatedDate);
+        setModpacks(loadedModpacks);
     };
 
     const refresh = async function () {
-
-        localStorage.clear();
+        ModpackStorage.clear();
 
         setLoading(true);
         await loadModpacks();
