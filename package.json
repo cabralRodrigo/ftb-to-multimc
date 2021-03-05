@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "main": ".webpack/main",
+  "productName": "FTB to MultiMC",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",

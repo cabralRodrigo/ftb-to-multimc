@@ -1,6 +1,8 @@
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, shell, Menu } from 'electron';
 import isDev from 'electron-is-dev';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
+
+app.setName('FTB to MultiMC');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -23,9 +25,14 @@ const createWindow = () => {
     });
 
     if (isDev)
-        mainWindow.webContents.openDevTools()
-    else
+        mainWindow.webContents.openDevTools();
+    else {
+        const menu = Menu.buildFromTemplate([]);
+        mainWindow.setMenu(menu);
+        Menu.setApplicationMenu(menu);
+
         mainWindow.removeMenu();
+    }
 
     // and load the index.html of the app.
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
