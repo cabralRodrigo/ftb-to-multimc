@@ -1,5 +1,4 @@
-import { Modpack, Target, VersionDetail } from "../overwolf/models";
-import { Client as OverwolfClient } from '../overwolf/client';
+import { Modpack, OverwolfClient, Target, VersionDetail } from '../overwolf';
 
 import JSZip from 'jszip';
 import { join } from 'path';
@@ -15,7 +14,7 @@ export type Options = {
     reportError: (error: string) => void
 };
 
-export default async function downloadModpack({
+export async function downloadModpack({
     modpack,
     versionId,
     signal,

@@ -1,5 +1,6 @@
 import React from "react"
-import { Modpack } from "../overwolf/models";
+
+import { Modpack } from "../overwolf";
 
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Modpack, Tag } from "../overwolf/models";
+import { Modpack, Tag } from "../overwolf";
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';

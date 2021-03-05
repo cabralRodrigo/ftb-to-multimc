@@ -1,7 +1,8 @@
-import { Modpack } from "../overwolf/models";
-
 import React, { useState } from "react";
 import ReactMarkdown from 'react-markdown';
+
+import { Modpack } from "../overwolf";
+import { downloadModpack } from "../util";
 
 import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
@@ -15,16 +16,12 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
-
-import downloadModpack from './Downloader';
-
 type Props = {
     modpack: Modpack | null,
     close: () => void;
 };
 
 export default function ModpackDetails({ modpack, close }: Props) {
-
     const [downloading, setDownloading] = useState(false);
     const [steps, setSteps] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);

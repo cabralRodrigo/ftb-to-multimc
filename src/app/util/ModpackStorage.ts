@@ -1,4 +1,4 @@
-import { Modpack } from "../overwolf/models";
+import { Modpack } from "../overwolf";
 
 const KEY = 'modpacks';
 
@@ -7,7 +7,7 @@ type StoredModpacks = {
     updateDate: string | Date
 }
 
-export default class ModpackStorage {
+export class ModpackStorage {
     public static hasModpacks() {
         return !!localStorage.getItem(KEY);
     }

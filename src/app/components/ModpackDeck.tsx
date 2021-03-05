@@ -1,10 +1,8 @@
-import { Modpack } from "../overwolf/models";
-import ModpackCard from './ModpackCard';
-import ModpackDetails from "./ModpackDetails";
-
 import React, { useState } from "react";
 
-import Container from 'react-bootstrap/Container';
+import { Modpack } from "../overwolf";
+import { ModpackCard, ModpackDetails } from ".";
+
 import Row from 'react-bootstrap/Row';
 
 type Props = { modpacks: Modpack[] };
