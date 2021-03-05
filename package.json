@@ -17,7 +17,9 @@
   "description": "Download and export FTB modpacks to MultiMC.",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "src/app/assets/icon"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-zip",

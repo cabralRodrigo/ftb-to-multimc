@@ -25,6 +25,9 @@ export default function Banner() {
                 <strong>
                     Got a bug or suggestion? Open an issue in the <a href="https://github.com/cabralRodrigo/ftb-to-multimc" target="_blank"> official Github repository</a>.
                 </strong>
+                <div style={{ fontSize: 'small' }}>
+                    Application icon made by <a href="https://icon54.com/" target="_blank" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" target="_blank" title="Flaticon">www.flaticon.com</a>
+                </div>
             </p>
         </Container>
     </Jumbotron>;
