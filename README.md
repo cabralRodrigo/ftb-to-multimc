@@ -1,3 +1,6 @@
+
+## Turns out that the Development branch of MultiMC already has a feature to import a FTB App modpack. This app is discontinued.
+
 # FTB to MultiMC
 Downloads and exports FTB modpacks to MultiMC
 
